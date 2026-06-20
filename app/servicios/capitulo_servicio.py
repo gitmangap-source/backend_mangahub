@@ -7,6 +7,10 @@ from app.esquemas.capitulo import ChapterCreate
 from app.esquemas.pagina import PageCreate
 
 
+def get_chapters_by_manga(db: Session, manga_id: UUID):
+    return db.query(Chapter).filter(Chapter.manga_id == manga_id).order_by(Chapter.chapter_number.asc()).all()
+
+
 def create_chapter(db: Session, manga_id: UUID, chapter_data: ChapterCreate):
 
     new_chapter = Chapter(

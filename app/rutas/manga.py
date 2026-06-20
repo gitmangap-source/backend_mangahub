@@ -21,6 +21,7 @@ from app.esquemas.manga import (
     MangaUpdate,
     MangaOut
 )
+from app.esquemas.capitulo import ChapterOut
 
 from app.servicios.manga_servicio import (
     create_manga,
@@ -30,6 +31,7 @@ from app.servicios.manga_servicio import (
     update_manga,
     delete_manga
 )
+from app.servicios.capitulo_servicio import get_chapters_by_manga
 
 router = APIRouter()
 
@@ -94,6 +96,31 @@ def get_manga(
         )
 
     return manga
+
+
+@router.get(
+    "/{manga_id}/chapters",
+    response_model=list[ChapterOut]
+)
+def get_manga_chapters(
+    manga_id: UUID,
+    db: Session = Depends(get_db)
+):
+    manga = get_manga_by_id(
+        db,
+        manga_id
+    )
+
+    if not manga:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Manga no encontrado"
+        )
+
+    return get_chapters_by_manga(
+        db,
+        manga_id
+    )
 
 
 @router.put(
