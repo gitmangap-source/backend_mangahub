@@ -42,7 +42,7 @@ def login_user(db: Session, login_data: UserLogin):
         return None
 
     token = create_access_token(
-        data={"sub": str(user.id)}
+        data={"sub": str(user.id), "username": user.username}
     )
 
     return {
