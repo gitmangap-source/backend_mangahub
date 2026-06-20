@@ -1,0 +1,26 @@
+fastapi
+uvicorn[standard]
+
+sqlalchemy
+psycopg2-binary
+alembic
+
+pydantic
+pydantic-settings
+
+python-dotenv
+
+python-jose[cryptography]
+passlib[bcrypt]
+
+python-multipart
+
+supabase
+
+email-validator
+
+httpx
+
+orjson
+
+comando de frontend python -m http.server 5500    uvicorn app.main:app --reload
